@@ -1,10 +1,11 @@
-==Filesystem Boilerplate for Purpose-Built Gentoo Installs==
+## Filesystem Boilerplate for Purpose-Built Gentoo Installs==
 
-This is just a tribute.
-- Tenacious D
+> This is just a tribute.
+> ~ *Tenacious D*
 
-= The goal of this git repository is to provide some filesystem boilerplate for
-a certain style of Gentoo installation for purpose-built systems. =
+*The goal of this git repository is to provide some filesystem boilerplate for
+a certain style of [Gentoo](https://www.gentoo.org) installation for
+purpose-built systems.*
 
 Gentoo is perhaps my favorite Linux distribution, and I've deployed it in a
 number of scenarios over time. It isn't usually for the faint of heart, and
