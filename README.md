@@ -27,9 +27,21 @@ than I would prefer (particularly for things like docker containers).  However
 I have run into a few issues doing so, and this tiny repository (just a few
 directories, really) is my answer to those issues.
 
-If I clone this repo into, say, a new qemu image /dev/shm/qemu.img mounted on
-/mnt/altroot (a raw image mounted via loop), the types of commands I am running
-are 
+The following bits must be done as root, so great caution or a test system is useful.
+
+
+The qemu command used to make this image looks like this: 
+``` qemu-img create -f raw  /dev/shm/qemu.img 4G ```
+
+Then the disk is set up as a loop device and partitioned via sfdisk.
+```
+LOOP=`losetup -f --show /dev/shm/qemu.img`
+sfdisk $LOOP <sfscript 
+mkfs.btrfs $LOOP\p1
+mount $LOOPp1 /mnt/altroot
+```
+Then I have a fresh qemu image to work with, so I move the contents of this repo there, and then emerge there.
+
 
 ```
 time  PORTAGE_CONFIGROOT=/mnt/altroot ROOT=/mnt/altroot emerge -vK -j3 --load-average 4  @system grub app-crypt/gnupg app-misc/screen app-emulation/docker htop
@@ -50,6 +62,4 @@ grub on the host).
 
 In the above example, the current qemu image is ~500Mb, with docker and
 necessary build tools installed.
-
-
 
