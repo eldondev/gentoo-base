@@ -44,7 +44,7 @@ Then I have a fresh qemu image to work with, so I move the contents of this repo
 
 
 ```
-time  PORTAGE_CONFIGROOT=/mnt/altroot ROOT=/mnt/altroot emerge -vK -j3 --load-average 4  @system grub app-crypt/gnupg app-misc/screen app-emulation/docker htop
+time  PORTAGE_CONFIGROOT=/mnt/altroot ROOT=/mnt/altroot emerge -vK -j --load-average 4  @system grub app-crypt/gnupg app-misc/screen app-emulation/docker htop
 ```
 
 which gives me a specific minimal system, this one being suitable for the start
@@ -53,7 +53,12 @@ would like into /mnt/altroot/boot.  I can then unmount the root fs and run
 something like
 
 ```
-qemu-system-x86_64 -machine accel=kvm  -m 1G -smp 2 -kernel /boot/vmlinuz-4.4.0 -append "root=/dev/sda1 single"  -curses -hda /dev/shm/qemu.img
+(sleep 15 && echo -e "passme\n" && sleep 1 && echo -e "mount -o remount,rw /\\n" && sleep 1 && echo -e "echo 'root:hello'|chpasswd\\n" && sleep 1 && echo -e "halt\\n" ) | qemu-system-x86_64 -machine accel=kvm  -m 1G -smp 2  -kernel /boot/vmlinuz  -hda /dev/shm/qemu.img  -nographic -append "console=ttyS0 root=/dev/sda1 single"
+```
+
+This sets the root password of the new system. Then I run normal
+```
+qemu-system-x86_64 -machine accel=kvm  -m 1G -smp 2 -kernel /boot/vmlinuz -append "root=/dev/sda1 single"  -curses -hda /dev/shm/qemu.img
 ```
 
 which will start the machine with the supplied kernel in single user mode. From
