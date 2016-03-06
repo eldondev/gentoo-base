@@ -32,7 +32,7 @@ If I clone this repo into, say, a new qemu image /dev/shm/qemu.img mounted on
 are 
 
 ```
-time emerge -v -j3 --load-average 4 --root=/mnt/altroot @system grub app-crypt/gnupg app-misc/screen
+time  PORTAGE_CONFIGROOT=/mnt/altroot ROOT=/mnt/altroot emerge -vK -j3 --load-average 4  @system grub app-crypt/gnupg app-misc/screen app-emulation/docker htop
 ```
 
 which gives me a specific minimal system, this one being suitable for the start
@@ -48,7 +48,8 @@ which will start the machine with the supplied kernel in single user mode. From
 there I can install grub onto the qemu image (this is safer than mucking with
 grub on the host).
 
-In the above example, the current qemu image is ~252Mb, just a little more than
-a stage3.
+In the above example, the current qemu image is ~500Mb, with docker and
+necessary build tools installed.
+
 
 
