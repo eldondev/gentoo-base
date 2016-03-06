@@ -1,0 +1,4 @@
+/dev/sda1 /             btrfs   noatime         0 1
+none    /var/tmp        tmpfs   defaults        0 0
+none    /var/core       tmpfs   defaults        0 0
+
